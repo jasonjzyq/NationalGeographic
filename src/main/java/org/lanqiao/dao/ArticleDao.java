@@ -17,4 +17,7 @@ public interface ArticleDao {
     int updateByPrimaryKeyWithBLOBs(Article record);
 
     int updateByPrimaryKey(Article record);
+    
+    //添加文章
+    void insertArticle(Article article);
 }

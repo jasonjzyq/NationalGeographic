@@ -35,6 +35,16 @@
 	<sql id="Blob_Column_List">
 		ARTICLE_CONTENT
 	</sql>
+
+	<!-- 把文章加入数据库 -->
+	<insert id="insertArticle" parameterType="org.lanqiao.entity.Article">
+		insert into
+		article(ARTICLE_ID,ARTICLE_TITLE,ARTICLE_LEAD,ARTICLE_CONTENT,ARTICLE_DATE,USER_ID,CLICK_COUNT,STATE,ARTICLE_IMG)values
+		(SEQ_NEWARTICLE.NEXTVAL,#{articleTitle,jdbcType=VARCHAR},#{articleLead,jdbcType=VARCHAR},#{articleContent,jdbcType=CLOB},#{articleDate,jdbcType=DATE}
+		,#{user.userId,jdbcType=DECIMAL},#{clickCount,jdbcType=DECIMAL},#{state,jdbcType=VARCHAR},#{articleImg,jdbcType=VARCHAR})
+	</insert>
+
+
 	<select id="selectByPrimaryKey" parameterType="java.math.BigDecimal"
 		resultMap="ArticleResult">
 		select
