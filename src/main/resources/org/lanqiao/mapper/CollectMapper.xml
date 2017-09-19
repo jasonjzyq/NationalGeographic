@@ -1,31 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.lanqiao.dao.CollectDao">
-  <resultMap id="CollectResult" type="org.lanqiao.entity.Collect">
-    <result column="USER_ID" jdbcType="DECIMAL" property="userId" />
-    <result column="ARTICLE_ID" jdbcType="DECIMAL" property="articleId" />
-  </resultMap>
-  <insert id="insert" parameterType="org.lanqiao.entity.Collect">
-    insert into COLLECT (USER_ID, ARTICLE_ID)
-    values (#{userId,jdbcType=DECIMAL}, #{articleId,jdbcType=DECIMAL})
-  </insert>
-  <insert id="insertSelective" parameterType="org.lanqiao.entity.Collect">
-    insert into COLLECT
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        USER_ID,
-      </if>
-      <if test="articleId != null">
-        ARTICLE_ID,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        #{userId,jdbcType=DECIMAL},
-      </if>
-      <if test="articleId != null">
-        #{articleId,jdbcType=DECIMAL},
-      </if>
-    </trim>
-  </insert>
+	<resultMap id="CollectResult" type="org.lanqiao.entity.Collect">
+		<!-- <result column="USER_ID" jdbcType="DECIMAL" property="userId" /> <result 
+			column="ARTICLE_ID" jdbcType="DECIMAL" property="articleId" /> -->
+		<association property="user" resultMap="UserResult"></association>
+		<association property="article" resultMap="ArticleResult"></association>
+	</resultMap>
+	<resultMap id="UserResult" type="org.lanqiao.entity.User">
+		<id column="USER_ID" jdbcType="DECIMAL" property="userId" />
+		<result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+		<result column="USER_PASSWORD" jdbcType="VARCHAR" property="userPassword" />
+		<result column="EMAIL" jdbcType="VARCHAR" property="email" />
+		<result column="TEL" jdbcType="DECIMAL" property="tel" />
+		<result column="USER_PHOTO" jdbcType="VARCHAR" property="userPhoto" />
+		<result column="SEX" jdbcType="VARCHAR" property="sex" />
+		<result column="BIRTHDAY" jdbcType="DATE" property="birthday" />
+	</resultMap>
+	<resultMap id="ArticleResult" type="org.lanqiao.entity.Article">
+		<id column="ARTICLE_ID" jdbcType="DECIMAL" property="articleId" />
+		<result column="ARTICLE_TITLE" jdbcType="VARCHAR" property="articleTitle" />
+		<result column="ARTICLE_LEAD" jdbcType="VARCHAR" property="articleLead" />
+		<result column="ARTICLE_DATE" jdbcType="DATE" property="articleDate" />
+		<result column="USER_ID" jdbcType="DECIMAL" property="userId" />
+		<result column="CLICK_COUNT" jdbcType="DECIMAL" property="clickCount" />
+		<result column="STATE" jdbcType="VARCHAR" property="state" />
+		<result column="ARTICLE_IMG" jdbcType="VARCHAR" property="articleImg" />
+	</resultMap>
+	<resultMap extends="ArticleResult" id="ResultMapWithBLOBs"
+		type="org.lanqiao.entity.Article">
+		<result column="ARTICLE_CONTENT" jdbcType="CLOB" property="articleContent" />
+	</resultMap>
+	<insert id="insert" parameterType="org.lanqiao.entity.Collect">
+		insert into COLLECT (USER_ID,
+		ARTICLE_ID)
+		values (#{userId,jdbcType=DECIMAL},
+		#{articleId,jdbcType=DECIMAL})
+	</insert>
+	<insert id="insertSelective" parameterType="org.lanqiao.entity.Collect">
+		insert into COLLECT
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="articleId != null">
+				ARTICLE_ID,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				#{userId,jdbcType=DECIMAL},
+			</if>
+			<if test="articleId != null">
+				#{articleId,jdbcType=DECIMAL},
+			</if>
+		</trim>
+	</insert>
 </mapper>

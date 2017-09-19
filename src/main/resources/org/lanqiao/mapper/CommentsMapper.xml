@@ -1,95 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.lanqiao.dao.CommentsDao">
-  <resultMap id="CommentsResult" type="org.lanqiao.entity.Comments">
-    <id column="COMMENT_ID" jdbcType="DECIMAL" property="commentId" />
-    <result column="COMMENT_DATE" jdbcType="DATE" property="commentDate" />
-    <result column="USER_ID" jdbcType="DECIMAL" property="userId" />
-  </resultMap>
-  <resultMap extends="CommentsResult" id="ResultMapWithBLOBs" type="org.lanqiao.entity.Comments">
-    <result column="COMMENT_CONTENT" jdbcType="CLOB" property="commentContent" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    COMMENT_ID, COMMENT_DATE, USER_ID
-  </sql>
-  <sql id="Blob_Column_List">
-    COMMENT_CONTENT
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="ResultMapWithBLOBs">
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from COMMENTS
-    where COMMENT_ID = #{commentId,jdbcType=DECIMAL}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
-    delete from COMMENTS
-    where COMMENT_ID = #{commentId,jdbcType=DECIMAL}
-  </delete>
-  <insert id="insert" parameterType="org.lanqiao.entity.Comments">
-    insert into COMMENTS (COMMENT_ID, COMMENT_DATE, USER_ID, 
-      COMMENT_CONTENT)
-    values (#{commentId,jdbcType=DECIMAL}, #{commentDate,jdbcType=DATE}, #{userId,jdbcType=DECIMAL}, 
-      #{commentContent,jdbcType=CLOB})
-  </insert>
-  <insert id="insertSelective" parameterType="org.lanqiao.entity.Comments">
-    insert into COMMENTS
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="commentId != null">
-        COMMENT_ID,
-      </if>
-      <if test="commentDate != null">
-        COMMENT_DATE,
-      </if>
-      <if test="userId != null">
-        USER_ID,
-      </if>
-      <if test="commentContent != null">
-        COMMENT_CONTENT,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="commentId != null">
-        #{commentId,jdbcType=DECIMAL},
-      </if>
-      <if test="commentDate != null">
-        #{commentDate,jdbcType=DATE},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=DECIMAL},
-      </if>
-      <if test="commentContent != null">
-        #{commentContent,jdbcType=CLOB},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.entity.Comments">
-    update COMMENTS
-    <set>
-      <if test="commentDate != null">
-        COMMENT_DATE = #{commentDate,jdbcType=DATE},
-      </if>
-      <if test="userId != null">
-        USER_ID = #{userId,jdbcType=DECIMAL},
-      </if>
-      <if test="commentContent != null">
-        COMMENT_CONTENT = #{commentContent,jdbcType=CLOB},
-      </if>
-    </set>
-    where COMMENT_ID = #{commentId,jdbcType=DECIMAL}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="org.lanqiao.entity.Comments">
-    update COMMENTS
-    set COMMENT_DATE = #{commentDate,jdbcType=DATE},
-      USER_ID = #{userId,jdbcType=DECIMAL},
-      COMMENT_CONTENT = #{commentContent,jdbcType=CLOB}
-    where COMMENT_ID = #{commentId,jdbcType=DECIMAL}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="org.lanqiao.entity.Comments">
-    update COMMENTS
-    set COMMENT_DATE = #{commentDate,jdbcType=DATE},
-      USER_ID = #{userId,jdbcType=DECIMAL}
-    where COMMENT_ID = #{commentId,jdbcType=DECIMAL}
-  </update>
+	<resultMap id="CommentsResult" type="org.lanqiao.entity.Comments">
+		<id column="COMMENT_ID" jdbcType="DECIMAL" property="commentId" />
+		<result column="COMMENT_DATE" jdbcType="DATE" property="commentDate" />
+		<!-- <result column="USER_ID" jdbcType="DECIMAL" property="userId" /> -->
+		<association property="user" resultMap="UserResult"></association>
+	</resultMap>
+	<resultMap extends="CommentsResult" id="ResultMapWithBLOBs"
+		type="org.lanqiao.entity.Comments">
+		<result column="COMMENT_CONTENT" jdbcType="CLOB" property="commentContent" />
+	</resultMap>
+	<resultMap id="UserResult" type="org.lanqiao.entity.User">
+		<id column="USER_ID" jdbcType="DECIMAL" property="userId" />
+		<result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+		<result column="USER_PASSWORD" jdbcType="VARCHAR" property="userPassword" />
+		<result column="EMAIL" jdbcType="VARCHAR" property="email" />
+		<result column="TEL" jdbcType="DECIMAL" property="tel" />
+		<result column="USER_PHOTO" jdbcType="VARCHAR" property="userPhoto" />
+		<result column="SEX" jdbcType="VARCHAR" property="sex" />
+		<result column="BIRTHDAY" jdbcType="DATE" property="birthday" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		COMMENT_ID, COMMENT_DATE, USER_ID
+	</sql>
+	<sql id="Blob_Column_List">
+		COMMENT_CONTENT
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.math.BigDecimal"
+		resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from COMMENTS
+		where COMMENT_ID = #{commentId,jdbcType=DECIMAL}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+		delete from COMMENTS
+		where COMMENT_ID = #{commentId,jdbcType=DECIMAL}
+	</delete>
+	<insert id="insert" parameterType="org.lanqiao.entity.Comments">
+		insert into COMMENTS (COMMENT_ID, COMMENT_DATE, USER_ID,
+		COMMENT_CONTENT)
+		values (#{commentId,jdbcType=DECIMAL}, #{commentDate,jdbcType=DATE},
+		#{userId,jdbcType=DECIMAL},
+		#{commentContent,jdbcType=CLOB})
+	</insert>
+	<insert id="insertSelective" parameterType="org.lanqiao.entity.Comments">
+		insert into COMMENTS
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="commentId != null">
+				COMMENT_ID,
+			</if>
+			<if test="commentDate != null">
+				COMMENT_DATE,
+			</if>
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="commentContent != null">
+				COMMENT_CONTENT,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="commentId != null">
+				#{commentId,jdbcType=DECIMAL},
+			</if>
+			<if test="commentDate != null">
+				#{commentDate,jdbcType=DATE},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=DECIMAL},
+			</if>
+			<if test="commentContent != null">
+				#{commentContent,jdbcType=CLOB},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.entity.Comments">
+		update COMMENTS
+		<set>
+			<if test="commentDate != null">
+				COMMENT_DATE = #{commentDate,jdbcType=DATE},
+			</if>
+			<if test="userId != null">
+				USER_ID = #{userId,jdbcType=DECIMAL},
+			</if>
+			<if test="commentContent != null">
+				COMMENT_CONTENT = #{commentContent,jdbcType=CLOB},
+			</if>
+		</set>
+		where COMMENT_ID = #{commentId,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="org.lanqiao.entity.Comments">
+		update COMMENTS
+		set COMMENT_DATE = #{commentDate,jdbcType=DATE},
+		USER_ID = #{userId,jdbcType=DECIMAL},
+		COMMENT_CONTENT = #{commentContent,jdbcType=CLOB}
+		where COMMENT_ID = #{commentId,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="org.lanqiao.entity.Comments">
+		update COMMENTS
+		set COMMENT_DATE = #{commentDate,jdbcType=DATE},
+		USER_ID = #{userId,jdbcType=DECIMAL}
+		where COMMENT_ID = #{commentId,jdbcType=DECIMAL}
+	</update>
 </mapper>

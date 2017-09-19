@@ -1,160 +1,192 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.lanqiao.dao.ArticleDao">
-  <resultMap id="ArticleResult" type="org.lanqiao.entity.Article">
-    <id column="ARTICLE_ID" jdbcType="DECIMAL" property="articleId" />
-    <result column="ARTICLE_TITLE" jdbcType="VARCHAR" property="articleTitle" />
-    <result column="ARTICLE_LEAD" jdbcType="VARCHAR" property="articleLead" />
-    <result column="ARTICLE_DATE" jdbcType="DATE" property="articleDate" />
-    <result column="USER_ID" jdbcType="DECIMAL" property="userId" />
-    <result column="CLICK_COUNT" jdbcType="DECIMAL" property="clickCount" />
-    <result column="STATE" jdbcType="VARCHAR" property="state" />
-    <result column="ARTICLE_IMG" jdbcType="VARCHAR" property="articleImg" />
-  </resultMap>
-  <resultMap extends="ArticleResult" id="ResultMapWithBLOBs" type="org.lanqiao.entity.Article">
-    <result column="ARTICLE_CONTENT" jdbcType="CLOB" property="articleContent" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    ARTICLE_ID, ARTICLE_TITLE, ARTICLE_LEAD, ARTICLE_DATE, USER_ID, CLICK_COUNT, STATE, 
-    ARTICLE_IMG
-  </sql>
-  <sql id="Blob_Column_List">
-    ARTICLE_CONTENT
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="ResultMapWithBLOBs">
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from ARTICLE
-    where ARTICLE_ID = #{articleId,jdbcType=DECIMAL}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
-    delete from ARTICLE
-    where ARTICLE_ID = #{articleId,jdbcType=DECIMAL}
-  </delete>
-  <insert id="insert" parameterType="org.lanqiao.entity.Article">
-    insert into ARTICLE (ARTICLE_ID, ARTICLE_TITLE, ARTICLE_LEAD, 
-      ARTICLE_DATE, USER_ID, CLICK_COUNT, 
-      STATE, ARTICLE_IMG, ARTICLE_CONTENT
-      )
-    values (#{articleId,jdbcType=DECIMAL}, #{articleTitle,jdbcType=VARCHAR}, #{articleLead,jdbcType=VARCHAR}, 
-      #{articleDate,jdbcType=DATE}, #{userId,jdbcType=DECIMAL}, #{clickCount,jdbcType=DECIMAL}, 
-      #{state,jdbcType=VARCHAR}, #{articleImg,jdbcType=VARCHAR}, #{articleContent,jdbcType=CLOB}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="org.lanqiao.entity.Article">
-    insert into ARTICLE
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="articleId != null">
-        ARTICLE_ID,
-      </if>
-      <if test="articleTitle != null">
-        ARTICLE_TITLE,
-      </if>
-      <if test="articleLead != null">
-        ARTICLE_LEAD,
-      </if>
-      <if test="articleDate != null">
-        ARTICLE_DATE,
-      </if>
-      <if test="userId != null">
-        USER_ID,
-      </if>
-      <if test="clickCount != null">
-        CLICK_COUNT,
-      </if>
-      <if test="state != null">
-        STATE,
-      </if>
-      <if test="articleImg != null">
-        ARTICLE_IMG,
-      </if>
-      <if test="articleContent != null">
-        ARTICLE_CONTENT,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="articleId != null">
-        #{articleId,jdbcType=DECIMAL},
-      </if>
-      <if test="articleTitle != null">
-        #{articleTitle,jdbcType=VARCHAR},
-      </if>
-      <if test="articleLead != null">
-        #{articleLead,jdbcType=VARCHAR},
-      </if>
-      <if test="articleDate != null">
-        #{articleDate,jdbcType=DATE},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=DECIMAL},
-      </if>
-      <if test="clickCount != null">
-        #{clickCount,jdbcType=DECIMAL},
-      </if>
-      <if test="state != null">
-        #{state,jdbcType=VARCHAR},
-      </if>
-      <if test="articleImg != null">
-        #{articleImg,jdbcType=VARCHAR},
-      </if>
-      <if test="articleContent != null">
-        #{articleContent,jdbcType=CLOB},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.entity.Article">
-    update ARTICLE
-    <set>
-      <if test="articleTitle != null">
-        ARTICLE_TITLE = #{articleTitle,jdbcType=VARCHAR},
-      </if>
-      <if test="articleLead != null">
-        ARTICLE_LEAD = #{articleLead,jdbcType=VARCHAR},
-      </if>
-      <if test="articleDate != null">
-        ARTICLE_DATE = #{articleDate,jdbcType=DATE},
-      </if>
-      <if test="userId != null">
-        USER_ID = #{userId,jdbcType=DECIMAL},
-      </if>
-      <if test="clickCount != null">
-        CLICK_COUNT = #{clickCount,jdbcType=DECIMAL},
-      </if>
-      <if test="state != null">
-        STATE = #{state,jdbcType=VARCHAR},
-      </if>
-      <if test="articleImg != null">
-        ARTICLE_IMG = #{articleImg,jdbcType=VARCHAR},
-      </if>
-      <if test="articleContent != null">
-        ARTICLE_CONTENT = #{articleContent,jdbcType=CLOB},
-      </if>
-    </set>
-    where ARTICLE_ID = #{articleId,jdbcType=DECIMAL}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="org.lanqiao.entity.Article">
-    update ARTICLE
-    set ARTICLE_TITLE = #{articleTitle,jdbcType=VARCHAR},
-      ARTICLE_LEAD = #{articleLead,jdbcType=VARCHAR},
-      ARTICLE_DATE = #{articleDate,jdbcType=DATE},
-      USER_ID = #{userId,jdbcType=DECIMAL},
-      CLICK_COUNT = #{clickCount,jdbcType=DECIMAL},
-      STATE = #{state,jdbcType=VARCHAR},
-      ARTICLE_IMG = #{articleImg,jdbcType=VARCHAR},
-      ARTICLE_CONTENT = #{articleContent,jdbcType=CLOB}
-    where ARTICLE_ID = #{articleId,jdbcType=DECIMAL}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="org.lanqiao.entity.Article">
-    update ARTICLE
-    set ARTICLE_TITLE = #{articleTitle,jdbcType=VARCHAR},
-      ARTICLE_LEAD = #{articleLead,jdbcType=VARCHAR},
-      ARTICLE_DATE = #{articleDate,jdbcType=DATE},
-      USER_ID = #{userId,jdbcType=DECIMAL},
-      CLICK_COUNT = #{clickCount,jdbcType=DECIMAL},
-      STATE = #{state,jdbcType=VARCHAR},
-      ARTICLE_IMG = #{articleImg,jdbcType=VARCHAR}
-    where ARTICLE_ID = #{articleId,jdbcType=DECIMAL}
-  </update>
+	<resultMap id="ArticleResult" type="org.lanqiao.entity.Article">
+		<id column="ARTICLE_ID" jdbcType="DECIMAL" property="articleId" />
+		<result column="ARTICLE_TITLE" jdbcType="VARCHAR" property="articleTitle" />
+		<result column="ARTICLE_LEAD" jdbcType="VARCHAR" property="articleLead" />
+		<result column="ARTICLE_DATE" jdbcType="DATE" property="articleDate" />
+		<result column="CLICK_COUNT" jdbcType="DECIMAL" property="clickCount" />
+		<result column="STATE" jdbcType="VARCHAR" property="state" />
+		<result column="ARTICLE_IMG" jdbcType="VARCHAR" property="articleImg" />
+		<!-- <result column="USER_ID" jdbcType="DECIMAL" property="userId" /> -->
+		<association property="user" resultMap="UserResult"></association>
+	</resultMap>
+	<resultMap extends="ArticleResult" id="ResultMapWithBLOBs"
+		type="org.lanqiao.entity.Article">
+		<result column="ARTICLE_CONTENT" jdbcType="CLOB" property="articleContent" />
+	</resultMap>
+	<resultMap id="UserResult" type="org.lanqiao.entity.User">
+		<id column="USER_ID" jdbcType="DECIMAL" property="userId" />
+		<result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+		<result column="USER_PASSWORD" jdbcType="VARCHAR" property="userPassword" />
+		<result column="EMAIL" jdbcType="VARCHAR" property="email" />
+		<result column="TEL" jdbcType="DECIMAL" property="tel" />
+		<result column="USER_PHOTO" jdbcType="VARCHAR" property="userPhoto" />
+		<result column="SEX" jdbcType="VARCHAR" property="sex" />
+		<result column="BIRTHDAY" jdbcType="DATE" property="birthday" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ARTICLE_ID, ARTICLE_TITLE, ARTICLE_LEAD, ARTICLE_DATE,
+		USER_ID, CLICK_COUNT,
+		STATE,
+		ARTICLE_IMG
+	</sql>
+	<sql id="Blob_Column_List">
+		ARTICLE_CONTENT
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.math.BigDecimal"
+		resultMap="ArticleResult">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from ARTICLE
+		where ARTICLE_ID = #{articleId,jdbcType=DECIMAL}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+		delete from
+		ARTICLE
+		where ARTICLE_ID = #{articleId,jdbcType=DECIMAL}
+	</delete>
+	<insert id="insert" parameterType="org.lanqiao.entity.Article">
+		insert into ARTICLE
+		(ARTICLE_ID, ARTICLE_TITLE, ARTICLE_LEAD,
+		ARTICLE_DATE, USER_ID,
+		CLICK_COUNT,
+		STATE, ARTICLE_IMG, ARTICLE_CONTENT
+		)
+		values
+		(#{articleId,jdbcType=DECIMAL}, #{articleTitle,jdbcType=VARCHAR},
+		#{articleLead,jdbcType=VARCHAR},
+		#{articleDate,jdbcType=DATE},
+		#{userId,jdbcType=DECIMAL}, #{clickCount,jdbcType=DECIMAL},
+		#{state,jdbcType=VARCHAR}, #{articleImg,jdbcType=VARCHAR},
+		#{articleContent,jdbcType=CLOB}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="org.lanqiao.entity.Article">
+		insert into ARTICLE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="articleId != null">
+				ARTICLE_ID,
+			</if>
+			<if test="articleTitle != null">
+				ARTICLE_TITLE,
+			</if>
+			<if test="articleLead != null">
+				ARTICLE_LEAD,
+			</if>
+			<if test="articleDate != null">
+				ARTICLE_DATE,
+			</if>
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="clickCount != null">
+				CLICK_COUNT,
+			</if>
+			<if test="state != null">
+				STATE,
+			</if>
+			<if test="articleImg != null">
+				ARTICLE_IMG,
+			</if>
+			<if test="articleContent != null">
+				ARTICLE_CONTENT,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="articleId != null">
+				#{articleId,jdbcType=DECIMAL},
+			</if>
+			<if test="articleTitle != null">
+				#{articleTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="articleLead != null">
+				#{articleLead,jdbcType=VARCHAR},
+			</if>
+			<if test="articleDate != null">
+				#{articleDate,jdbcType=DATE},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=DECIMAL},
+			</if>
+			<if test="clickCount != null">
+				#{clickCount,jdbcType=DECIMAL},
+			</if>
+			<if test="state != null">
+				#{state,jdbcType=VARCHAR},
+			</if>
+			<if test="articleImg != null">
+				#{articleImg,jdbcType=VARCHAR},
+			</if>
+			<if test="articleContent != null">
+				#{articleContent,jdbcType=CLOB},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.entity.Article">
+		update ARTICLE
+		<set>
+			<if test="articleTitle != null">
+				ARTICLE_TITLE = #{articleTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="articleLead != null">
+				ARTICLE_LEAD = #{articleLead,jdbcType=VARCHAR},
+			</if>
+			<if test="articleDate != null">
+				ARTICLE_DATE = #{articleDate,jdbcType=DATE},
+			</if>
+			<if test="userId != null">
+				USER_ID = #{userId,jdbcType=DECIMAL},
+			</if>
+			<if test="clickCount != null">
+				CLICK_COUNT = #{clickCount,jdbcType=DECIMAL},
+			</if>
+			<if test="state != null">
+				STATE = #{state,jdbcType=VARCHAR},
+			</if>
+			<if test="articleImg != null">
+				ARTICLE_IMG = #{articleImg,jdbcType=VARCHAR},
+			</if>
+			<if test="articleContent != null">
+				ARTICLE_CONTENT = #{articleContent,jdbcType=CLOB},
+			</if>
+		</set>
+		where ARTICLE_ID = #{articleId,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="org.lanqiao.entity.Article">
+		update
+		ARTICLE
+		set ARTICLE_TITLE = #{articleTitle,jdbcType=VARCHAR},
+		ARTICLE_LEAD = #{articleLead,jdbcType=VARCHAR},
+		ARTICLE_DATE =
+		#{articleDate,jdbcType=DATE},
+		USER_ID = #{userId,jdbcType=DECIMAL},
+		CLICK_COUNT = #{clickCount,jdbcType=DECIMAL},
+		STATE =
+		#{state,jdbcType=VARCHAR},
+		ARTICLE_IMG =
+		#{articleImg,jdbcType=VARCHAR},
+		ARTICLE_CONTENT =
+		#{articleContent,jdbcType=CLOB}
+		where ARTICLE_ID =
+		#{articleId,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="org.lanqiao.entity.Article">
+		update ARTICLE
+		set
+		ARTICLE_TITLE = #{articleTitle,jdbcType=VARCHAR},
+		ARTICLE_LEAD =
+		#{articleLead,jdbcType=VARCHAR},
+		ARTICLE_DATE =
+		#{articleDate,jdbcType=DATE},
+		USER_ID = #{userId,jdbcType=DECIMAL},
+		CLICK_COUNT = #{clickCount,jdbcType=DECIMAL},
+		STATE =
+		#{state,jdbcType=VARCHAR},
+		ARTICLE_IMG = #{articleImg,jdbcType=VARCHAR}
+		where ARTICLE_ID = #{articleId,jdbcType=DECIMAL}
+	</update>
 </mapper>

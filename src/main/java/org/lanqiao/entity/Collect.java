@@ -1,25 +1,40 @@
 package org.lanqiao.entity;
 
-import java.math.BigDecimal;
-
 public class Collect {
-    private BigDecimal userId;
+	private User user;
 
-    private BigDecimal articleId;
+	private Article article;
 
-    public BigDecimal getUserId() {
-        return userId;
-    }
+	public User getUser() {
+		return user;
+	}
 
-    public void setUserId(BigDecimal userId) {
-        this.userId = userId;
-    }
+	public void setUser(User user) {
+		this.user = user;
+	}
 
-    public BigDecimal getArticleId() {
-        return articleId;
-    }
+	public Article getArticle() {
+		return article;
+	}
 
-    public void setArticleId(BigDecimal articleId) {
-        this.articleId = articleId;
-    }
+	public void setArticle(Article article) {
+		this.article = article;
+	}
+
+	// public BigDecimal getUserId() {
+	// return userId;
+	// }
+	//
+	// public void setUserId(BigDecimal userId) {
+	// this.userId = userId;
+	// }
+	//
+	// public BigDecimal getArticleId() {
+	// return articleId;
+	// }
+	//
+	// public void setArticleId(BigDecimal articleId) {
+	// this.articleId = articleId;
+	// }
+
 }
