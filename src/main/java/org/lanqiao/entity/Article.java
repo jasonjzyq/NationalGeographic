@@ -3,6 +3,8 @@ package org.lanqiao.entity;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class Article {
 	private BigDecimal articleId;
 
@@ -10,6 +12,7 @@ public class Article {
 
 	private String articleLead;
 
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date articleDate;
 
 	private User user;
