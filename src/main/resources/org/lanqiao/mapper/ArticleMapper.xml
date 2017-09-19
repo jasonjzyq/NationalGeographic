@@ -44,6 +44,21 @@
 		,#{user.userId,jdbcType=DECIMAL},#{clickCount,jdbcType=DECIMAL},#{state,jdbcType=VARCHAR},#{articleImg,jdbcType=VARCHAR})
 	</insert>
 
+	<!-- 查看所有文章 -->
+	<select id="selectAllArticle" parameterType="java.math.BigDecimal"
+		resultMap="ArticleResult">
+		select a.*,u.user_name from ARTICLE a,users u where
+		a.user_id = u.user_id
+	</select>
+
+	<!-- 查看指定文章 -->
+	<select id="selectArticleById" parameterType="java.math.BigDecimal"
+		resultMap="ArticleResult">
+		select * 
+		from ARTICLE
+		where ARTICLE_ID = #{articleId,jdbcType=DECIMAL}
+	</select>
+
 
 	<select id="selectByPrimaryKey" parameterType="java.math.BigDecimal"
 		resultMap="ArticleResult">

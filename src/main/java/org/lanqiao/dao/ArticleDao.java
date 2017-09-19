@@ -1,6 +1,8 @@
 package org.lanqiao.dao;
 
 import java.math.BigDecimal;
+import java.util.List;
+
 import org.lanqiao.entity.Article;
 
 public interface ArticleDao {
@@ -20,4 +22,10 @@ public interface ArticleDao {
     
     //添加文章
     void insertArticle(Article article);
+    
+    //查看所有文章
+    List<Article> selectAllArticle();
+    
+    //查看指定文章
+    Article selectArticleById(BigDecimal articleId);
 }
