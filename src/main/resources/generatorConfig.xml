@@ -48,42 +48,30 @@
 			enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" 
 			enableUpdateByExample="false"> <property name="useActualColumnNames" value="true" 
 			/> </table> -->
-		<table tableName="USERS" domainObjectName="User"
-			enableCountByExample="false" enableDeleteByExample="false"
-			enableSelectByExample="false" enableUpdateByExample="false">
-			<property name="useActualColumnNames" value="false" />
-		</table>
-		<table tableName="ARTICLE" domainObjectName="Article"
-			enableCountByExample="false" enableDeleteByExample="false"
-			enableSelectByExample="false" enableUpdateByExample="false">
-			<property name="useActualColumnNames" value="false" />
-		</table>
-		<table tableName="TYPE" domainObjectName="Type"
-			enableCountByExample="false" enableDeleteByExample="false"
-			enableSelectByExample="false" enableUpdateByExample="false">
-			<property name="useActualColumnNames" value="false" />
-		</table>
-		<table tableName="COMMENTS" domainObjectName="Comments"
-			enableCountByExample="false" enableDeleteByExample="false"
-			enableSelectByExample="false" enableUpdateByExample="false">
-			<property name="useActualColumnNames" value="false" />
-		</table>
-		<table tableName="ADMIN" domainObjectName="Admin"
-			enableCountByExample="false" enableDeleteByExample="false"
-			enableSelectByExample="false" enableUpdateByExample="false">
-			<property name="useActualColumnNames" value="false" />
-		</table>
+
+		<!-- <table tableName="USERS" domainObjectName="User" enableCountByExample="false" 
+			enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"> 
+			<property name="useActualColumnNames" value="false" /> </table> <table tableName="ARTICLE" 
+			domainObjectName="Article" enableCountByExample="false" enableDeleteByExample="false" 
+			enableSelectByExample="false" enableUpdateByExample="false"> <property name="useActualColumnNames" 
+			value="false" /> </table> <table tableName="TYPE" domainObjectName="Type" 
+			enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" 
+			enableUpdateByExample="false"> <property name="useActualColumnNames" value="false" 
+			/> </table> <table tableName="COMMENTS" domainObjectName="Comments" enableCountByExample="false" 
+			enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"> 
+			<property name="useActualColumnNames" value="false" /> </table> <table tableName="ADMIN" 
+			domainObjectName="Admin" enableCountByExample="false" enableDeleteByExample="false" 
+			enableSelectByExample="false" enableUpdateByExample="false"> <property name="useActualColumnNames" 
+			value="false" /> </table> <table tableName="COLLECT" domainObjectName="Collect" 
+			enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" 
+			enableUpdateByExample="false"> <property name="useActualColumnNames" value="false" 
+			/> </table> -->
 		<table tableName="DAYPIC" domainObjectName="Daypic"
 			enableCountByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="false" enableUpdateByExample="false">
 			<property name="useActualColumnNames" value="false" />
 		</table>
 		<table tableName="PICTURE" domainObjectName="Picture"
-			enableCountByExample="false" enableDeleteByExample="false"
-			enableSelectByExample="false" enableUpdateByExample="false">
-			<property name="useActualColumnNames" value="false" />
-		</table>
-		<table tableName="COLLECT" domainObjectName="Collect"
 			enableCountByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="false" enableUpdateByExample="false">
 			<property name="useActualColumnNames" value="false" />

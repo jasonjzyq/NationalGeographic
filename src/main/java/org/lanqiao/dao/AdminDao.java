@@ -15,4 +15,5 @@ public interface AdminDao {
     int updateByPrimaryKeySelective(Admin record);
 
     int updateByPrimaryKey(Admin record);
+
 }

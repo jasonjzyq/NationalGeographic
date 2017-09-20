@@ -9,4 +9,6 @@ public interface ReviewArticlesService {
 	public List<Article> getAllReviewArticles();
 	
 	public Article getAppointArticle(BigDecimal articleId);
+	
+	public void modifyArticleStatus(Article article);
 }

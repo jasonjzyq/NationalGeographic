@@ -54,10 +54,21 @@
 	<!-- 查看指定文章 -->
 	<select id="selectArticleById" parameterType="java.math.BigDecimal"
 		resultMap="ArticleResult">
-		select * 
+		select *
 		from ARTICLE
-		where ARTICLE_ID = #{articleId,jdbcType=DECIMAL}
+		where ARTICLE_ID =
+		#{articleId,jdbcType=DECIMAL}
 	</select>
+
+	<!-- 通过id修改文章状态 -->
+	<update id="updateArticleStatusById" parameterType="org.lanqiao.entity.Article">
+		update
+		ARTICLE set STATE = #{state,jdbcType=VARCHAR} where ARTICLE_ID =
+		#{articleId,jdbcType=DECIMAL}
+	</update>
+
+
+
 
 
 	<select id="selectByPrimaryKey" parameterType="java.math.BigDecimal"

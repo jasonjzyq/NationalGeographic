@@ -14,22 +14,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class ReviewArticlesController {
 
-	//查看按钮
+	// 查看按钮
 	@RequestMapping("testBrowseReviewArticles")
 	public String toReviewArticles() {
 		return "testBrowseReviewArticles";
 	}
-	
+
 	@Autowired
 	ReviewArticlesService reviewArticlesService;
 
-	//跳转所有文章页
+	// 跳转所有文章页
 	@RequestMapping("toBrowseReviewArticles")
-	public String lalala(){
+	public String lalala() {
 		return "browseAllReviewArticles";
 	}
-	
-	//ajax获取文章
+
+	// ajax获取文章
 	@RequestMapping("browseAllReviewArticles")
 	@ResponseBody
 	public List<Article> getAllReviewArticles() {
@@ -37,11 +37,26 @@ public class ReviewArticlesController {
 		return articles;
 	}
 
-	//获取该文章内容
+	// 获取该文章内容
 	@RequestMapping("getAppointArticle")
-	public String getAppointArticle(BigDecimal articleId,Model model){
+	public String getAppointArticle(BigDecimal articleId, Model model) {
 		reviewArticlesService.getAppointArticle(articleId);
 		model.addAttribute("article", reviewArticlesService.getAppointArticle(articleId));
 		return "showAppointArticle";
+	}
+
+	// 修改文章结果
+	@RequestMapping("reviewAppointArticle")
+	public String reviewAppointArticle(String results, Article article) {
+		if (results.equals("pass")) {
+			article.setState("通过");
+			reviewArticlesService.modifyArticleStatus(article);
+		} else if (results.equals("unPass")) {
+			article.setState("未通过");
+			reviewArticlesService.modifyArticleStatus(article);
+		} else {
+
+		}
+		return "browseAllReviewArticles";
 	}
 }

@@ -1,103 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.lanqiao.dao.DaypicDao">
-	<resultMap id="DaypicResult" type="org.lanqiao.entity.Daypic"> 
-		<id column="DAYPIC_ID" jdbcType="DECIMAL" property="daypicId" />
-		<result column="INTRODUCTION" jdbcType="VARCHAR" property="introduction" />
-		<!-- <result column="PICTURE_ID" jdbcType="DECIMAL" property="pictureId" /> -->
-		<result column="DAYPIC_TITLE" jdbcType="VARCHAR" property="daypicTitle" />
-		<result column="DAYPIC_DATE" jdbcType="DATE" property="daypicDate" />
-		<association property="picture" resultMap="PictureResult"></association>
-	</resultMap>
-	<resultMap id="PictureResult" type="org.lanqiao.entity.Picture">
-		<id column="PICTURE_ID" jdbcType="DECIMAL" property="pictureId" />
-		<result column="PICTURE" jdbcType="VARCHAR" property="picture" />
-		<result column="PICTURE_AUTHOR" jdbcType="VARCHAR" property="pictureAuthor" />
-		<result column="PICTURE_NAME" jdbcType="VARCHAR" property="pictureName" />
-		<result column="PICTURE_TYPE" jdbcType="VARCHAR" property="pictureType" />
-	</resultMap>
-	<sql id="Base_Column_List">
-		DAYPIC_ID, INTRODUCTION, PICTURE_ID, DAYPIC_TITLE, DAYPIC_DATE
-	</sql>
-	<select id="selectByPrimaryKey" parameterType="java.math.BigDecimal"
-		resultMap="DaypicResult">
-		select
-		<include refid="Base_Column_List" />
-		from DAYPIC
-		where DAYPIC_ID = #{daypicId,jdbcType=DECIMAL}
-	</select>
-	<delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
-		delete from DAYPIC
-		where DAYPIC_ID = #{daypicId,jdbcType=DECIMAL}
-	</delete>
-	<insert id="insert" parameterType="org.lanqiao.entity.Daypic">
-		insert into DAYPIC (DAYPIC_ID, INTRODUCTION, PICTURE_ID,
-		DAYPIC_TITLE, DAYPIC_DATE)
-		values (#{daypicId,jdbcType=DECIMAL}, #{introduction,jdbcType=VARCHAR},
-		#{pictureId,jdbcType=DECIMAL},
-		#{daypicTitle,jdbcType=VARCHAR}, #{daypicDate,jdbcType=DATE})
-	</insert>
-	<insert id="insertSelective" parameterType="org.lanqiao.entity.Daypic">
-		insert into DAYPIC
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="daypicId != null">
-				DAYPIC_ID,
-			</if>
-			<if test="introduction != null">
-				INTRODUCTION,
-			</if>
-			<if test="pictureId != null">
-				PICTURE_ID,
-			</if>
-			<if test="daypicTitle != null">
-				DAYPIC_TITLE,
-			</if>
-			<if test="daypicDate != null">
-				DAYPIC_DATE,
-			</if>
-		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="daypicId != null">
-				#{daypicId,jdbcType=DECIMAL},
-			</if>
-			<if test="introduction != null">
-				#{introduction,jdbcType=VARCHAR},
-			</if>
-			<if test="pictureId != null">
-				#{pictureId,jdbcType=DECIMAL},
-			</if>
-			<if test="daypicTitle != null">
-				#{daypicTitle,jdbcType=VARCHAR},
-			</if>
-			<if test="daypicDate != null">
-				#{daypicDate,jdbcType=DATE},
-			</if>
-		</trim>
-	</insert>
-	<update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.entity.Daypic">
-		update DAYPIC
-		<set>
-			<if test="introduction != null">
-				INTRODUCTION = #{introduction,jdbcType=VARCHAR},
-			</if>
-			<if test="pictureId != null">
-				PICTURE_ID = #{pictureId,jdbcType=DECIMAL},
-			</if>
-			<if test="daypicTitle != null">
-				DAYPIC_TITLE = #{daypicTitle,jdbcType=VARCHAR},
-			</if>
-			<if test="daypicDate != null">
-				DAYPIC_DATE = #{daypicDate,jdbcType=DATE},
-			</if>
-		</set>
-		where DAYPIC_ID = #{daypicId,jdbcType=DECIMAL}
-	</update>
-	<update id="updateByPrimaryKey" parameterType="org.lanqiao.entity.Daypic">
-		update DAYPIC
-		set INTRODUCTION = #{introduction,jdbcType=VARCHAR},
-		PICTURE_ID = #{pictureId,jdbcType=DECIMAL},
-		DAYPIC_TITLE = #{daypicTitle,jdbcType=VARCHAR},
-		DAYPIC_DATE = #{daypicDate,jdbcType=DATE}
-		where DAYPIC_ID = #{daypicId,jdbcType=DECIMAL}
-	</update>
+  <resultMap id="DaypicResult" type="org.lanqiao.entity.Daypic">
+    <id column="DAYPIC_ID" jdbcType="DECIMAL" property="daypicId" />
+    <result column="INTRODUCTION" jdbcType="VARCHAR" property="introduction" />
+    <result column="DAYPIC_TITLE" jdbcType="VARCHAR" property="daypicTitle" />
+    <result column="DAYPIC_DATE" jdbcType="DATE" property="daypicDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    DAYPIC_ID, INTRODUCTION, DAYPIC_TITLE, DAYPIC_DATE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="DaypicResult">
+    select 
+    <include refid="Base_Column_List" />
+    from DAYPIC
+    where DAYPIC_ID = #{daypicId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from DAYPIC
+    where DAYPIC_ID = #{daypicId,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="org.lanqiao.entity.Daypic">
+    insert into DAYPIC (DAYPIC_ID, INTRODUCTION, DAYPIC_TITLE, 
+      DAYPIC_DATE)
+    values (#{daypicId,jdbcType=DECIMAL}, #{introduction,jdbcType=VARCHAR}, #{daypicTitle,jdbcType=VARCHAR}, 
+      #{daypicDate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="org.lanqiao.entity.Daypic">
+    insert into DAYPIC
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="daypicId != null">
+        DAYPIC_ID,
+      </if>
+      <if test="introduction != null">
+        INTRODUCTION,
+      </if>
+      <if test="daypicTitle != null">
+        DAYPIC_TITLE,
+      </if>
+      <if test="daypicDate != null">
+        DAYPIC_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="daypicId != null">
+        #{daypicId,jdbcType=DECIMAL},
+      </if>
+      <if test="introduction != null">
+        #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="daypicTitle != null">
+        #{daypicTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="daypicDate != null">
+        #{daypicDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.entity.Daypic">
+    update DAYPIC
+    <set>
+      <if test="introduction != null">
+        INTRODUCTION = #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="daypicTitle != null">
+        DAYPIC_TITLE = #{daypicTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="daypicDate != null">
+        DAYPIC_DATE = #{daypicDate,jdbcType=DATE},
+      </if>
+    </set>
+    where DAYPIC_ID = #{daypicId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.lanqiao.entity.Daypic">
+    update DAYPIC
+    set INTRODUCTION = #{introduction,jdbcType=VARCHAR},
+      DAYPIC_TITLE = #{daypicTitle,jdbcType=VARCHAR},
+      DAYPIC_DATE = #{daypicDate,jdbcType=DATE}
+    where DAYPIC_ID = #{daypicId,jdbcType=DECIMAL}
+  </update>
 </mapper>

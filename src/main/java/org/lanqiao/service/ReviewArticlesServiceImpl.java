@@ -23,4 +23,9 @@ public class ReviewArticlesServiceImpl implements ReviewArticlesService{
 		return articleDao.selectArticleById(articleId);
 	}
 
+	@Override
+	public void modifyArticleStatus(Article article) {
+		articleDao.updateArticleStatusById(article);
+	}
+
 }

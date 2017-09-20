@@ -28,4 +28,7 @@ public interface ArticleDao {
     
     //查看指定文章
     Article selectArticleById(BigDecimal articleId);
+    
+    //通过id修改文章状态
+    void updateArticleStatusById(Article article);
 }

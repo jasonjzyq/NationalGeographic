@@ -1,93 +1,128 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.lanqiao.dao.PictureDao">
-  <resultMap id="PictureResult" type="org.lanqiao.entity.Picture">
-    <id column="PICTURE_ID" jdbcType="DECIMAL" property="pictureId" />
-    <result column="PICTURE" jdbcType="VARCHAR" property="picture" />
-    <result column="PICTURE_AUTHOR" jdbcType="VARCHAR" property="pictureAuthor" />
-    <result column="PICTURE_NAME" jdbcType="VARCHAR" property="pictureName" />
-    <result column="PICTURE_TYPE" jdbcType="VARCHAR" property="pictureType" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    PICTURE_ID, PICTURE, PICTURE_AUTHOR, PICTURE_NAME, PICTURE_TYPE
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="PictureResult">
-    select 
-    <include refid="Base_Column_List" />
-    from PICTURE
-    where PICTURE_ID = #{pictureId,jdbcType=DECIMAL}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
-    delete from PICTURE
-    where PICTURE_ID = #{pictureId,jdbcType=DECIMAL}
-  </delete>
-  <insert id="insert" parameterType="org.lanqiao.entity.Picture">
-    insert into PICTURE (PICTURE_ID, PICTURE, PICTURE_AUTHOR, 
-      PICTURE_NAME, PICTURE_TYPE)
-    values (#{pictureId,jdbcType=DECIMAL}, #{picture,jdbcType=VARCHAR}, #{pictureAuthor,jdbcType=VARCHAR}, 
-      #{pictureName,jdbcType=VARCHAR}, #{pictureType,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="org.lanqiao.entity.Picture">
-    insert into PICTURE
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="pictureId != null">
-        PICTURE_ID,
-      </if>
-      <if test="picture != null">
-        PICTURE,
-      </if>
-      <if test="pictureAuthor != null">
-        PICTURE_AUTHOR,
-      </if>
-      <if test="pictureName != null">
-        PICTURE_NAME,
-      </if>
-      <if test="pictureType != null">
-        PICTURE_TYPE,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="pictureId != null">
-        #{pictureId,jdbcType=DECIMAL},
-      </if>
-      <if test="picture != null">
-        #{picture,jdbcType=VARCHAR},
-      </if>
-      <if test="pictureAuthor != null">
-        #{pictureAuthor,jdbcType=VARCHAR},
-      </if>
-      <if test="pictureName != null">
-        #{pictureName,jdbcType=VARCHAR},
-      </if>
-      <if test="pictureType != null">
-        #{pictureType,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.entity.Picture">
-    update PICTURE
-    <set>
-      <if test="picture != null">
-        PICTURE = #{picture,jdbcType=VARCHAR},
-      </if>
-      <if test="pictureAuthor != null">
-        PICTURE_AUTHOR = #{pictureAuthor,jdbcType=VARCHAR},
-      </if>
-      <if test="pictureName != null">
-        PICTURE_NAME = #{pictureName,jdbcType=VARCHAR},
-      </if>
-      <if test="pictureType != null">
-        PICTURE_TYPE = #{pictureType,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where PICTURE_ID = #{pictureId,jdbcType=DECIMAL}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="org.lanqiao.entity.Picture">
-    update PICTURE
-    set PICTURE = #{picture,jdbcType=VARCHAR},
-      PICTURE_AUTHOR = #{pictureAuthor,jdbcType=VARCHAR},
-      PICTURE_NAME = #{pictureName,jdbcType=VARCHAR},
-      PICTURE_TYPE = #{pictureType,jdbcType=VARCHAR}
-    where PICTURE_ID = #{pictureId,jdbcType=DECIMAL}
-  </update>
+	<resultMap id="PictureResult" type="org.lanqiao.entity.Picture">
+		<id column="PICTURE_ID" jdbcType="DECIMAL" property="pictureId" />
+		<result column="PICTURE" jdbcType="VARCHAR" property="picture" />
+		<result column="PICTURE_AUTHOR" jdbcType="VARCHAR" property="pictureAuthor" />
+		<result column="PICTURE_NAME" jdbcType="VARCHAR" property="pictureName" />
+		<result column="PICTURE_TYPE" jdbcType="VARCHAR" property="pictureType" />
+		<!-- <result column="DAYPIC_ID" jdbcType="DECIMAL" property="daypicId" 
+			/> -->
+		<association property="daypic" resultMap="DaypicResult"></association>
+	</resultMap>
+	<resultMap id="DaypicResult" type="org.lanqiao.entity.Daypic">
+		<id column="DAYPIC_ID" jdbcType="DECIMAL" property="daypicId" />
+		<result column="INTRODUCTION" jdbcType="VARCHAR" property="introduction" />
+		<result column="DAYPIC_TITLE" jdbcType="VARCHAR" property="daypicTitle" />
+		<result column="DAYPIC_DATE" jdbcType="DATE" property="daypicDate" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		PICTURE_ID, PICTURE, PICTURE_AUTHOR, PICTURE_NAME,
+		PICTURE_TYPE, DAYPIC_ID
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.math.BigDecimal"
+		resultMap="PictureResult">
+		select
+		<include refid="Base_Column_List" />
+		from PICTURE
+		where PICTURE_ID = #{pictureId,jdbcType=DECIMAL}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+		delete from
+		PICTURE
+		where PICTURE_ID = #{pictureId,jdbcType=DECIMAL}
+	</delete>
+	<insert id="insert" parameterType="org.lanqiao.entity.Picture">
+		insert into PICTURE
+		(PICTURE_ID, PICTURE, PICTURE_AUTHOR,
+		PICTURE_NAME, PICTURE_TYPE,
+		DAYPIC_ID
+		)
+		values (#{pictureId,jdbcType=DECIMAL},
+		#{picture,jdbcType=VARCHAR},
+		#{pictureAuthor,jdbcType=VARCHAR},
+		#{pictureName,jdbcType=VARCHAR}, #{pictureType,jdbcType=VARCHAR},
+		#{daypicId,jdbcType=DECIMAL}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="org.lanqiao.entity.Picture">
+		insert into PICTURE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="pictureId != null">
+				PICTURE_ID,
+			</if>
+			<if test="picture != null">
+				PICTURE,
+			</if>
+			<if test="pictureAuthor != null">
+				PICTURE_AUTHOR,
+			</if>
+			<if test="pictureName != null">
+				PICTURE_NAME,
+			</if>
+			<if test="pictureType != null">
+				PICTURE_TYPE,
+			</if>
+			<if test="daypicId != null">
+				DAYPIC_ID,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="pictureId != null">
+				#{pictureId,jdbcType=DECIMAL},
+			</if>
+			<if test="picture != null">
+				#{picture,jdbcType=VARCHAR},
+			</if>
+			<if test="pictureAuthor != null">
+				#{pictureAuthor,jdbcType=VARCHAR},
+			</if>
+			<if test="pictureName != null">
+				#{pictureName,jdbcType=VARCHAR},
+			</if>
+			<if test="pictureType != null">
+				#{pictureType,jdbcType=VARCHAR},
+			</if>
+			<if test="daypicId != null">
+				#{daypicId,jdbcType=DECIMAL},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="org.lanqiao.entity.Picture">
+		update PICTURE
+		<set>
+			<if test="picture != null">
+				PICTURE = #{picture,jdbcType=VARCHAR},
+			</if>
+			<if test="pictureAuthor != null">
+				PICTURE_AUTHOR = #{pictureAuthor,jdbcType=VARCHAR},
+			</if>
+			<if test="pictureName != null">
+				PICTURE_NAME = #{pictureName,jdbcType=VARCHAR},
+			</if>
+			<if test="pictureType != null">
+				PICTURE_TYPE = #{pictureType,jdbcType=VARCHAR},
+			</if>
+			<if test="daypicId != null">
+				DAYPIC_ID = #{daypicId,jdbcType=DECIMAL},
+			</if>
+		</set>
+		where PICTURE_ID = #{pictureId,jdbcType=DECIMAL}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="org.lanqiao.entity.Picture">
+		update PICTURE
+		set
+		PICTURE = #{picture,jdbcType=VARCHAR},
+		PICTURE_AUTHOR =
+		#{pictureAuthor,jdbcType=VARCHAR},
+		PICTURE_NAME =
+		#{pictureName,jdbcType=VARCHAR},
+		PICTURE_TYPE =
+		#{pictureType,jdbcType=VARCHAR},
+		DAYPIC_ID =
+		#{daypicId,jdbcType=DECIMAL}
+		where PICTURE_ID =
+		#{pictureId,jdbcType=DECIMAL}
+	</update>
 </mapper>

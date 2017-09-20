@@ -11,14 +11,13 @@
 	$(function() {
 		var articleId = $("span[name='articleId']").text();
 		$("#pass").click(function() {
-			alert($(this).text())
-			alert(articleId)
+			location.href="reviewAppointArticle?results=pass&articleId="+articleId;
 		})
 		$("#unPass").click(function() {
-			alert($(this).text())
+			location.href="reviewAppointArticle?results=unPass&articleId="+articleId;
 		})
 		$("#cancel").click(function() {
-			alert($(this).text())
+			location.href="reviewAppointArticle?results=cancel&articleId="+articleId;
 		})
 	})
 </script>
