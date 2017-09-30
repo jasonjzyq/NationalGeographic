@@ -41,7 +41,7 @@
 
 	<table id="dg" title="所有文章" class="easyui-datagrid"
 		url="browseAllReviewArticles" toolbar="#toolbar" rownumbers="true"
-		fitColumns="true" singleSelect="true">
+		fitColumns="true" singleSelect="true" pagination="true">
 		<thead>
 			<tr>
 				<th field="articleId" width="50">文章Id</th>

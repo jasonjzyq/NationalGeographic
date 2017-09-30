@@ -5,15 +5,27 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>提交成功</title>
+<link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+<script type="text/javascript"
+	src="bootstrap-3.3.7-dist/jquery-3.2.1.min.js"></script>
+<script type="text/javascript"
+	src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script type="text/javascript"
+	src="wangEditor-3.0.8/release/wangEditor.min.js"></script>
 </head>
 <body>
-	<p>提交成功,请耐心等待审核结果</p>
-	<div>
-		文章id：${article.articleId} <br> 标题：${article.articleTitle} <br>
-		导语：${article.articleLead} <br> 日期：${article.articleDate} <br>
-		用户id：${article.user.userId} <br> 点击量：${article.clickCount} <br>
-		状态：${article.state} <br> 主图：${article.articleImg}<br>
-		内容：${article.articleContent}
+	<div class="container">
+		<h1>提交成功,请耐心等待审核结果</h1>
+		<div>
+			<ul class="list-group">
+				<li class="list-group-item">标题：${article.articleTitle}</li>
+				<li class="list-group-item">导语：${article.articleLead}</li>
+				<li class="list-group-item">日期：${article.articleDate}</li>
+				<li class="list-group-item">状态：${article.state}</li>
+				<li class="list-group-item">主图：${article.articleImg}</li>
+				<li class="list-group-item">内容：${article.articleContent}</li>
+			</ul>
+		</div>
 	</div>
 </body>
 </html>

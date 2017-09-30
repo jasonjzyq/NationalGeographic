@@ -45,16 +45,32 @@
 	</insert>
 
 	<!-- 查看所有文章 -->
-	<select id="selectAllArticle" parameterType="java.math.BigDecimal"
+	<select id="selectAllArticleR" resultMap="ArticleResult">
+		select * from article
+	</select>
+
+	<!-- 查看所有文章 -->
+	<select id="selectAllArticle" parameterType="java.lang.Integer"
 		resultMap="ArticleResult">
-		select a.*,u.user_name from ARTICLE a,users u where
-		a.user_id = u.user_id
+		select * from (select A.*,rownum RN from (select
+		a.article_id,a.article_title,a.article_lead,a.article_content,to_char(a.article_date,'yyyy-MM-dd')
+		as
+		article_date,a.user_id,a.click_count,a.state,a.article_img,u.user_name
+		from
+		article
+		a left join users u on a.user_id =
+		u.user_id) A where ROWNUM <![CDATA[ <= ]]>
+		#{end,jdbcType=VARCHAR}) where RN >
+		#{begin,jdbcType=VARCHAR}
 	</select>
 
 	<!-- 查看指定文章 -->
 	<select id="selectArticleById" parameterType="java.math.BigDecimal"
-		resultMap="ArticleResult">
-		select *
+		resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
 		from ARTICLE
 		where ARTICLE_ID =
 		#{articleId,jdbcType=DECIMAL}
